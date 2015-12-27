@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+VER=$1
+if [ -z "$1" ]; then
+	echo "Usage: ${0} VERSION" >> /dev/stderr
+	exit 255
+fi
+
+echo "Setting $VER to ./version/version.go"
+sed -e 's/$VERSION/'"$VER"'/' ./scripts/version.go.tpl > ./version/version.go
+sed -e 's/$VERSION/'"$VER"'/' ./scripts/git-commit-version-bump.template > ./git-commit-version-bump
+cat ./version/version.go
+
+echo -n "Commit new version ? (y/n)"
+read ok
+if echo "$ok" | grep -iq "^y" ;then
+	git add ./version/version.go
+	git commit -t ./git-commit-version-bump
+	rm git-commit-version-bump
+fi

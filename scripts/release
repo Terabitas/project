@@ -1,0 +1,66 @@
+#!/bin/bash -e
+
+VER="$1"
+OS=$2
+PROJ=$(git rev-parse --show-toplevel)
+
+if [ -z "$1" ]; then
+	echo "Usage: ${0} VERSION OS_LIST" >> /dev/stderr
+	exit 255
+fi
+
+if [ -z "$2" ]; then
+	echo "Usage: ${0} VERSION OS_LIST" >> /dev/stderr
+	exit 255
+fi
+
+if [[ "$3" == "--package-only" ]]; then
+	PACKAGE_ONLY=1
+else
+    PACKAGE_ONLY=0
+fi
+
+set -u
+
+function package {
+	local target=${1}
+	local srcdir="${2}/bin"
+
+	local ccdir="${srcdir}/${GOOS}_${GOARCH}"
+	if [ -d ${ccdir} ]; then
+		srcdir=${ccdir}
+	fi
+	local ext=""
+	if [ ${GOOS} == "windows" ]; then
+		ext=".exe"
+	fi
+
+	for bin in project; do
+		cp ${srcdir}/${bin} ${target}/${bin}${ext}
+	done
+}
+
+function main {
+	cd $PROJ
+	mkdir -p $PROJ/release
+
+	for os in ${OS}; do
+		export GOOS=${os}
+		export GOARCH="amd64"
+
+		if [ "$PACKAGE_ONLY" -eq 0 ]; then
+			./build
+		fi
+
+		TARGET="project-${VER}-${GOOS}-${GOARCH}"
+		mkdir ${TARGET}
+		package ${TARGET} ${PROJ}
+
+		tar cfz release/${TARGET}.tar.gz ${TARGET}
+		rm -rf ${TARGET}
+
+		echo "Created in release/${TARGET}.tar.gz"
+	done
+}
+
+main

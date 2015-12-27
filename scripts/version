@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+VER=$1
+
+if [[ -z $VER ]]; then
+	VER=${CIRCLE_BRANCH:-$CIRCLE_TAG}
+fi
+
+if [[ -z $VER ]]; then
+	VER=$(git name-rev --name-only HEAD)
+fi
+
+echo -n "$VER" | sed 's#[^a-zA-Z0-9._]#-#g'

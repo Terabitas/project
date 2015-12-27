@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+echo "Building project"
+godep go build -o bin/project
+chmod +x bin/project
+
+./bin/project "$@"

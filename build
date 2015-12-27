@@ -1,0 +1,22 @@
+#!/bin/bash -e
+
+ORG_PATH="github.com/nildev"
+REPO_PATH="${ORG_PATH}/project"
+
+git2gosrc="${GOPATH}/src/github.com/libgit2/git2go"
+git2godir="Godeps/_workspace/src/github.com/libgit2/git2go"
+libgit2dir="${git2godir}/vendor/libgit2"
+
+godep update github.com/libgit2/git2go/...
+cp -r ${git2gosrc}/vendor ${git2godir}
+rm -rf ${libgit2dir}/.git
+rm -rf ${libgit2dir}/build
+
+chmod +x ${git2godir}/script/*.sh
+cd ${git2godir}
+make install
+
+cd $GOPATH/src/$REPO_PATH
+echo "Building project"
+godep go build -o bin/project -ldflags '-s'
+chmod +x bin/project
