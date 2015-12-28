@@ -14,10 +14,10 @@ fi
 
 if [ -z $3 ]; then
 
-  ghr -u nildev -r project $1 $2
+  ./scripts/ghr -u nildev -r project $1 $2
 
 else
 
-  ghr -u nildev -r project --replace $1 $2
+  ./scripts/ghr -u nildev -r project --replace $1 $2
 
 fi
