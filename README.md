@@ -2,6 +2,8 @@
 
 [Gitter]: https://gitter.im/nildev/project
 
+[![Join the chat at https://gitter.im/nildev/project](https://badges.gitter.im/nildev/project.svg)](https://gitter.im/nildev/project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Why ?
 
 Whenever I need to setup new *Golang* project I find myself copy/pasting from previous one. To save some time for myself
