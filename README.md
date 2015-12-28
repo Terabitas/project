@@ -1,9 +1,26 @@
 # `project` - automate initial project setup [![Circle CI](https://circleci.com/gh/nildev/project/tree/master.svg?style=svg&circle-token=5f985f466e03e2f89df778c37ff6c6ab0b370a09)](https://circleci.com/gh/nildev/project/tree/master)
 
-## Why
+## Why ?
 
-Whenever I need to setup new *Go* project I find myself copy/pasting from previous one. To solve that I created `project` tool
-that allows me to prepare different project *template* repositories and generate new project based on it.
+Whenever I need to setup new *Golang* project I find myself copy/pasting from previous one. To save some time for myself
+I've created this `project` cli app. 
+
+# How it works
+
+This cli app has one command `setup` which takes 3 arguments:
+
+ - `destDir` specifies where new project should be created
+ - `templateRepo` is git repository which hosts project template
+ - `configFile` has all variable values that should be applied on template
+
+Once you run it:
+
+```
+project setup --destDir=$GOPATH/src/github.com/nildev/my-new-app --configFile=./newapp.config.json --templateRepo="git@github.com:nildev/prj-tpl-cli-app.git"
+```
+
+`project` will clone `templateRepo` in `destDir` will remove `.git` dir and will start iterating over the files and directories
+searching for {{.Variable}}'s and replacing them with values from `configFile`.
 
 # How to use
 
@@ -26,33 +43,34 @@ go get github.com/nildev/project
 
 ## Project templates
 
-Using Golang template syntax prepare your project template, for example take a look at [this one](https://github.com/nildev/prj-tpl-cli-app).
-Then create `project.json` file with actual values for each variable you have defined in your project template.
+Using Golang template [syntax](https://golang.org/pkg/text/template/) prepare your project template, for example take a look at [this one](https://github.com/nildev/prj-tpl-cli-app).
+Or use one of already prepared [templates](https://github.com/nildev/project#available-templates).
 
-For example, content of such json file could be:
+Then create `project.json` file locally with values for each variable that is defined in config file. Every project template
+in root directory will contain `project.sample.json` with all available variables. 
+
+For example like this [one](https://github.com/nildev/prj-tpl-cli-app/blob/master/project.config.json):
 
 ```
 {
-  "GitRepoFullPath": "https://bitbucket.org/nildev/selis",
-  "OrgPath":"bitbucket.org/nildev",
-  "BinaryName" : "selisd",
-  "Org": "nildev",
-  "ServiceName": "selis",
-  "ServicePort" : "1080",
-  "ServiceVersion" : "0.1.0"
+  "GitRepoFullPath": "https://github.com/your_org/your_project_name",
+  "DocsGitRepoFullPath": "https://github.com/your_org/docs",
+  "OrgPath":"github.com/your_org",
+  "BinaryName" : "your_project_binary_name",
+  "ProjectName" : "your_project_name",
+  "BinaryDescription" : "Some description of your app",
+  "Org": "your_org"
 }
 ```
 
 ## Generate new project
 
 - replace $PATH_TO_NEW_PROJECT with path to directory where newly generated project should be created
-- replace $PATH_TO_CONFIG_JSON with path to json file with values for variables defined in template 
-- replace $PATH_TO_TEMPLATE_REPO to project template git repo for example `git@github.com:nildev/prj-tpl-cli-app.git`
+- replace $PATH_TO_CONFIG_JSON with path to json file you have created locally
+- replace $PATH_TO_TEMPLATE_REPO to project template git repository for example `git@github.com:nildev/prj-tpl-cli-app.git`
 
 Run:
 ```
-project setup --destDir=$PATH_TO_NEW_PROJECT --configFile=$PATH_TO_CONFIG_JSON --templateRepo="$PATH_TO_TEMPLATE_REPO"
-for example:
 project setup --destDir=$GOPATH/src/github.com/nildev/newapp --configFile=./newapp.config.json --templateRepo="git@github.com:nildev/prj-tpl-cli-app.git"
 ```
 
@@ -63,10 +81,9 @@ If template is in private repository make sure that required ssh key is added to
 # Available templates
 
 Here is a list of available templates.
-If you have created one please do a pull request with link to that repo.
+If you have created one please do a pull request with link to that repository:
 
  * https://github.com/nildev/prj-tpl-cli-app (`git@github.com:nildev/prj-tpl-cli-app.git`)
- 
 
 # Building from source
 
