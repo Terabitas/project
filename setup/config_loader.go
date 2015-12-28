@@ -4,5 +4,5 @@ package setup
 func NewConfigLoader(pathToConfig string) ConfigReader {
 
 	// todo: implement switch
-	return NewJsonLoader()
+	return NewJSONLoader()
 }

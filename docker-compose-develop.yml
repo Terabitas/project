@@ -1,0 +1,5 @@
+project:
+    image: quay.io/nildev/containers-go:latest
+    working_dir: /go/src/github.com/nildev/project
+    volumes:
+        - ./:/go/src/github.com/nildev/project

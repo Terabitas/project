@@ -9,7 +9,7 @@ type (
 
 // NewInitializer returns instance of initializer
 func NewInitializer() Initializer {
-	repoLoader := NewGitRepoLoader("master")
+	repoLoader := NewBashGitRepoLoader("master")
 	renderer := NewRenderer()
 	return &initializer{
 		repoLoader: repoLoader,

@@ -1,0 +1,51 @@
+machine:
+    timezone: Europe/Berlin
+    services:
+        - docker
+
+dependencies:
+    pre:
+        # Setup Docker
+        - sed "s/<EMAIL>/$DOCKER_EMAIL/;s/<AUTH>/$DOCKER_AUTH/" < .dockercfg.template > ~/.dockercfg
+
+    override:
+        # Build darwin binary
+        - sudo docker-compose -f docker-compose-develop.yml run -e GOOS=darwin -e GOARCH=amd64 project ./build
+
+        # Build darwin release
+        - ./scripts/release $(./scripts/version) darwin --package-only
+
+        # Build linux binary
+        - sudo docker-compose -f docker-compose-develop.yml run -e GOOS=linux -e GOARCH=amd64 project ./build
+
+        # Build linux release tarball
+        - ./scripts/release $(./scripts/version) linux --package-only
+
+        # Build service container
+        - sudo docker build -t quay.io/nildev/project:latest .
+
+test:
+    override:
+        - sudo docker-compose -f docker-compose-develop.yml run project go vet ./...
+        #- sudo docker-compose -f docker-compose-develop.yml run project errcheck -asserts -blank ./...
+        - sudo docker-compose -f docker-compose-develop.yml run project godep go test ./... -cover -tags=integration
+        - sudo docker-compose -f docker-compose-develop.yml run project bash -c 'lint=`golint ./...`; if [[ -n $lint ]]; then echo "$lint"; false; fi;'
+
+    post:
+        - mkdir -p $CIRCLE_ARTIFACTS/release
+        - sudo cp ./release/project-$(./scripts/version)-linux-amd64.tar.gz $CIRCLE_ARTIFACTS/release
+        - sudo cp ./release/project-$(./scripts/version)-darwin-amd64.tar.gz $CIRCLE_ARTIFACTS/release
+
+deployment:
+    docker:
+        branch: master
+        commands:
+            - docker tag quay.io/nildev/project:latest quay.io/nildev/project:$(./scripts/version)
+            - docker push quay.io/nildev/project:latest
+            - docker push quay.io/nildev/project:$(./scripts/version)
+    release:
+        tag: /v[0-9]+(\.[0-9]+)*/
+        commands:
+            - docker tag quay.io/nildev/project:latest quay.io/nildev/project:$(./scripts/version)
+            - docker push quay.io/nildev/project:latest
+            - docker push quay.io/nildev/project:$(./scripts/version)

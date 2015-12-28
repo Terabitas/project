@@ -20,12 +20,18 @@
 			"Rev": "0302d3914d2a6ad61404584cdae6e6dbc9c03599"
 		},
 		{
-			"ImportPath": "github.com/coreos/go-semver/semver",
-			"Rev": "d043ae190b3202550d026daf009359bb5d761672"
+			"ImportPath": "github.com/codegangsta/inject",
+			"Comment": "v1.0-rc1-10-g33e0aa1",
+			"Rev": "33e0aa1cb7c019ccc3fbe049a8262a6403d30504"
 		},
 		{
-			"ImportPath": "github.com/libgit2/git2go",
-			"Rev": "698ed4a42d86ae88682379c4ad6f209735d0bf33"
+			"ImportPath": "github.com/codeskyblue/go-sh",
+			"Comment": "v0.1-37-g3d593d4",
+			"Rev": "3d593d477915b4d2f2e74b2e041495345647a46b"
+		},
+		{
+			"ImportPath": "github.com/coreos/go-semver/semver",
+			"Rev": "d043ae190b3202550d026daf009359bb5d761672"
 		}
 	]
 }

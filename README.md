@@ -7,11 +7,21 @@ that allows me to prepare different project *template* repositories and generate
 
 # How to use
 
+## Prerequisites
+ 
+Make sure `git` is installed and required private keys are added to ssh agent. To add private key:
+
+```
+# If your private key is located at ~/.ssh/id_rsa
+ssh-add ~/.ssh/id_rsa
+```
+
 ## Install
 
-Either download binary from [here](https://github.com/nildev/project/releases) or `go get`
+Download binary from [here](https://github.com/nildev/project/releases) or `go get`:
+
 ```
-go get https://github.com/nildev/project
+go get github.com/nildev/project
 ```
 
 ## Project templates
@@ -63,7 +73,7 @@ If you have created one please do a pull request with link to that repo.
 1) Get repo
 
 ```
-go get bitbucket.org/nildev/tools
+go get github.com/nildev/project
 ```
 
 2) Restore deps

@@ -10,9 +10,8 @@ type (
 	jsonLoader struct{}
 )
 
-// NewJsonLoader returns instance of JSON config Loader
-func NewJsonLoader() ConfigReader {
-
+// NewJSONLoader returns instance of JSON config Loader
+func NewJSONLoader() ConfigReader {
 	return &jsonLoader{}
 }
 
