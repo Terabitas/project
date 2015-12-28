@@ -1,8 +1,4 @@
-# `project` - automate initial project setup [![Circle CI](https://circleci.com/gh/nildev/project/tree/master.svg?style=svg&circle-token=5f985f466e03e2f89df778c37ff6c6ab0b370a09)](https://circleci.com/gh/nildev/project/tree/master) [![Gitter Widget]][Gitter]
-
-[Gitter]: https://gitter.im/nildev/project
-
-[![Join the chat at https://gitter.im/nildev/project](https://badges.gitter.im/nildev/project.svg)](https://gitter.im/nildev/project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# `project` - automate initial project setup [![Circle CI](https://circleci.com/gh/nildev/project/tree/master.svg?style=svg&circle-token=5f985f466e03e2f89df778c37ff6c6ab0b370a09)](https://circleci.com/gh/nildev/project/tree/master) [![Join the chat at https://gitter.im/nildev/project](https://badges.gitter.im/nildev/project.svg)](https://gitter.im/nildev/project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Why ?
 
