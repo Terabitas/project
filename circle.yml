@@ -49,3 +49,4 @@ deployment:
             - docker tag quay.io/nildev/project:latest quay.io/nildev/project:$(./scripts/version)
             - docker push quay.io/nildev/project:latest
             - docker push quay.io/nildev/project:$(./scripts/version)
+            - ./scripts/upload-artifacts $(./scripts/version) ./release
