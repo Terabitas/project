@@ -128,6 +128,8 @@ func walkDirs(root string, cfg Config) {
 	}
 
 	for _, name := range dirs {
-		walkDirs(root+string(filepath.Separator)+name, cfg)
+		if name != "vendor" {
+			walkDirs(root+string(filepath.Separator)+name, cfg)
+		}
 	}
 }
