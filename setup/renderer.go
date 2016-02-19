@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"sort"
 	"text/template"
+	"regexp"
 )
 
 type (
@@ -84,6 +85,12 @@ func (r *renderer) visit(path string, f os.FileInfo, err error) error {
 	}
 
 	if !f.IsDir() {
+		re, _ := regexp.Compile(".*/vendor/.*")
+		matches := re.FindAllStringSubmatch(path, -1)
+		if len(matches) > 0 {
+			return nil
+		}
+
 		renderFile(newFileName, r.cfg)
 	}
 
