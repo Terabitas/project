@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/nildev/project/Godeps/_workspace/src/bitbucket.org/nildev/lib/log"
-	"github.com/nildev/project/Godeps/_workspace/src/github.com/codegangsta/cli"
+	"github.com/nildev/lib/log"
+	"github.com/codegangsta/cli"
 	"github.com/nildev/project/setup"
 	"github.com/nildev/project/version"
 )

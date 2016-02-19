@@ -1,7 +1,7 @@
 package version
 
 import (
-	"github.com/nildev/project/Godeps/_workspace/src/github.com/coreos/go-semver/semver"
+	"github.com/coreos/go-semver/semver"
 )
 
 // Version of the service.

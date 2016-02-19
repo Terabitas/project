@@ -1,7 +1,7 @@
 package setup
 
 import (
-	"github.com/nildev/project/Godeps/_workspace/src/github.com/codeskyblue/go-sh"
+	"github.com/codeskyblue/go-sh"
 	"log"
 	"os"
 	"path/filepath"
