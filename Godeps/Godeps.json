@@ -30,8 +30,16 @@
 			"Rev": "d043ae190b3202550d026daf009359bb5d761672"
 		},
 		{
+			"ImportPath": "github.com/getsentry/raven-go",
+			"Rev": "1cc47a9463b90f246a0503d4c2e9a55c9459ced3"
+		},
+		{
 			"ImportPath": "github.com/nildev/lib/log",
 			"Rev": "b073484ec1b6d967d5450865be13b148db5c783b"
+		},
+		{
+			"ImportPath": "github.com/tobi/airbrake-go",
+			"Rev": "a3cdd910a3ffef88a20fbecc10363a520ad61a0a"
 		}
 	]
 }
