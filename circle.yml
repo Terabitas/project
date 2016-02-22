@@ -26,7 +26,7 @@ test:
         - sudo docker-compose -f docker-compose-develop.yml run project go vet ./...
         #- sudo docker-compose -f docker-compose-develop.yml run project errcheck -asserts -blank ./...
         - sudo docker-compose -f docker-compose-develop.yml run project godep go test ./... -cover -tags=integration
-        - sudo docker-compose -f docker-compose-develop.yml run project bash -c 'lint=`golint ./...`; if [[ -n $lint ]]; then echo "$lint"; false; fi;'
+        - sudo docker-compose -f docker-compose-develop.yml run project bash -c 'lint=`golint ./...  | grep -v "^vendor\/" || true`; if [[ -n $lint ]]; then echo "$lint"; false; fi;'
 
     post:
         - mkdir -p $CIRCLE_ARTIFACTS/release
